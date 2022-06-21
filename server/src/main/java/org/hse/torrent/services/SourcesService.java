@@ -1,4 +1,4 @@
-package org.hse.nnbuilder.services;
+package org.hse.torrent.services;
 
 import net.devh.boot.grpc.server.service.GrpcService;
 
