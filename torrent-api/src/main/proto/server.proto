@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package org.hse.torrent.services;
+
+service ServerService {
+  rpc listQuery (listQueryRequest) returns (listQueryResponse);
+  rpc sourcesQuery (sourcesQueryRequest) returns (sourcesQueryResponse);
+  rpc updateQuery (updateQueryRequest) returns (updateQueryResponse);
+  rpc uploadQuery (uploadQueryRequest) returns (uploadQueryResponse);
+}
+
+message listQueryRequest {
+  //    <1: Byte>
+}
+
+message listQueryResponse {
+  //    <count: Int> (<id: Int> <name: String> <size: Long>)*,
+  int32 count = 1; //количество файлов
+  int32 id = 2;  //идентификатор файла
+  string name = 3; //название файла
+  int64  size = 4; //размер файла
+}
+
+message sourcesQueryRequest {
+  //    <3: Byte> <id: Int>,
+  int32 id = 1;  //идентификатор файла
+}
+
+message sourcesQueryResponse {
+  //    <size: Int> (<ip: ByteByteByteByte> <clientPort: Short>)*,
+  int32 size = 1; //количество клиентов, раздающих файл
+  bytes  ip = 2; //ip клиента,
+  int32  clientPort = 3; //порт клиента
+}
+
+message updateQueryRequest {
+  //    <4: Byte> <clientPort: Short> <count: Int> (<id: Int>)*,
+  int32 clientPort = 1; //порт клиента,
+  int32 count = 2; //количество раздаваемых файлов,
+  int32 id = 3; //идентификатор файла
+}
+
+message updateQueryResponse {
+  //    <status: Boolean>,
+  bool status = 1; //True, если информация успешно обновлена
+}
+
+message uploadQueryRequest {
+  //    <2: Byte> <name: String> <size: Long>,
+  string name = 1; //название файла
+  int64  size = 2; //размер файла
+}
+
+message uploadQueryResponse {
+  //    <id: Int>,
+  int32 id = 1;  //идентификатор файла
+}

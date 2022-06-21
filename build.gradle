@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'com.diffplug.spotless' version '6.3.0'
+    id 'com.palantir.baseline' version '4.126.0' apply false
+    id 'org.inferred.processors' version '3.6.0'
 
     id 'com.google.protobuf' version '0.8.14' apply false
     id 'org.springframework.boot' version '2.6.4' apply false
@@ -13,6 +15,7 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'com.diffplug.spotless'
+    apply plugin: 'com.palantir.baseline-idea'
 
     sourceCompatibility = '17'
 
