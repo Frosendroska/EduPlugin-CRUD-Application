@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package org.hse.nnbuilder.services;
+
+
+service UploadService {
+  rpc uploadQuery (uploadQueryRequest) returns (uploadQueryResponse);
+}
+
+message uploadQueryRequest {
+  //    <2: Byte> <name: String> <size: Long>,
+  string name = 1; //название файла
+  int64  size = 2; //размер файла
+}
+
+message uploadQueryResponse {
+  //    <id: Int>,
+  int32 id = 1;  //идентификатор файла
+}
