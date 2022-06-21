@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package org.hse.nnbuilder.services;
+
+
+service GetService {
+  rpc getQuery (getQueryRequest) returns (getQueryResponse);
+}
+
+message getQueryRequest {
+  //    <2: Byte> <id: Int> <part: Int>
+  int32 id = 1; //идентификатор файла,
+  int32 part = 2; //номер части
+
+}
+
+message getQueryResponse {
+  //    <content: Bytes>,
+  bytes  content = 1;//содержимое части
+}
