@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.hse.torrent.RepositoryStorage;
 import org.hse.torrent.Seed;
 import org.hse.torrent.SeedRepository;
 import org.hse.torrent.SharedFileMetadata;
@@ -74,9 +75,9 @@ public class ServerService extends ServerServiceGrpc.ServerServiceImplBase {
     public void reportSeed(ReportSeedRequest request, StreamObserver<Empty> responseObserver) {
         Seed seed = getOrCreateSeed(request.getIp(), request.getPort());
 
-        Set<Integer> requestedFileIds = request.getFileIdsList().stream().collect(Collectors.toSet());
+        Set<Integer> requestedFileIds = request.getFileIdsList().stream().collect(Collectors.toUnmodifiableSet());
         Set<SharedFileMetadata> files = sharedFileMetadataRepository.findAllById(request.getFileIdsList()).stream()
-                .collect(Collectors.toSet());
+                .collect(Collectors.toUnmodifiableSet());
         Set<Integer> missingFileIds = Sets.difference(
                 requestedFileIds,
                 files.stream().map(SharedFileMetadata::getFileId).collect(Collectors.toUnmodifiableSet()));
