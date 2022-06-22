@@ -98,6 +98,7 @@ public class ServerService extends ServerServiceGrpc.ServerServiceImplBase {
         if (seed.isEmpty()) {
             return new Seed(id, getNow(), ip, port);
         }
+        seed.get().setLastUpdated(getNow());
         return seed.get();
     }
 

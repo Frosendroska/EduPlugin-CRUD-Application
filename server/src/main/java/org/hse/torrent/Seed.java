@@ -65,6 +65,10 @@ public class Seed {
         return seedId;
     }
 
+    public void setLastUpdated(OffsetDateTime now) {
+        this.lastUpdated = now;
+    }
+
     public void addFile(SharedFileMetadata file) {
         this.files.add(file);
         file.addSeedInternal(this);
