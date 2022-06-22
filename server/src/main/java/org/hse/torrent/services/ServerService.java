@@ -10,17 +10,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.hse.torrent.RepositoryStorage;
 import org.hse.torrent.Seed;
 import org.hse.torrent.SeedRepository;
 import org.hse.torrent.SharedFileMetadata;
 import org.hse.torrent.SharedFileMetadataRepository;
+import org.hse.torrent.services.api.Server.GetSharedFileSeedResponse;
 import org.hse.torrent.services.api.Server.GetSharedFileSeedsRequest;
 import org.hse.torrent.services.api.Server.RegisterSharedFileRequest;
 import org.hse.torrent.services.api.Server.RegisterSharedFileResponse;
 import org.hse.torrent.services.api.Server.ReportSeedRequest;
 import org.hse.torrent.services.api.Server.SharedFileMetadataResponse;
-import org.hse.torrent.services.api.Server.SharedFileSeedResponse;
 import org.hse.torrent.services.api.ServerServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,12 +45,12 @@ public class ServerService extends ServerServiceGrpc.ServerServiceImplBase {
 
     @Override
     public void getSharedFileSeeds(
-            GetSharedFileSeedsRequest request, StreamObserver<SharedFileSeedResponse> responseObserver) {
+            GetSharedFileSeedsRequest request, StreamObserver<GetSharedFileSeedResponse> responseObserver) {
         SharedFileMetadata file = sharedFileMetadataRepository.getById(request.getFileId());
         OffsetDateTime now = OffsetDateTime.now();
         file.getSeeds().stream()
                 .filter(it -> it.isAlive(now))
-                .forEach(seed -> responseObserver.onNext(SharedFileSeedResponse.newBuilder()
+                .forEach(seed -> responseObserver.onNext(GetSharedFileSeedResponse.newBuilder()
                         .setIp(seed.getIp())
                         .setPort(seed.getPort())
                         .build()));

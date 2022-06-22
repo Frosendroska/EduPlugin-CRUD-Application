@@ -4,29 +4,33 @@ package org.hse.torrent.services;
 
 
 service ClientService {
-  rpc statQuery (statQueryRequest) returns (statQueryResponse);
-  rpc getQuery (getQueryRequest) returns (getQueryResponse);
+  /* STAT */
+  rpc getFilePartitioningInfo (GetFilePartitioningInfoRequest) returns (GetFilePartitioningInfoResponse);
+  /* GET */
+  rpc getFilePart (GetFilePartRequest) returns (GetFilePartResponse);
 }
 
-message statQueryRequest {
+/* STAT */
+message GetFilePartitioningInfoRequest {
   //    <1: Byte> <id: Int>,
-  int32 id = 1;  //идентификатор файла
+  int32 fileId = 1;  //идентификатор файла
 }
 
-message statQueryResponse {
+message GetFilePartitioningInfoResponse {
   //    <count: Int> (<part: Int>)*,
-  int32  count = 1; //количество доступных частей
-  int32  part = 2; //номер части
+  repeated int32  part = 1; //номер части
 }
 
-message getQueryRequest {
+
+/* GET */
+message GetFilePartRequest {
   //    <2: Byte> <id: Int> <part: Int>
-  int32 id = 1; //идентификатор файла,
-  int32 part = 2; //номер части
+  int32 fileId = 1; //идентификатор файла,
+  int32 partIndex = 2; //номер части
 
 }
 
-message getQueryResponse {
+message GetFilePartResponse {
   //    <content: Bytes>,
   bytes  content = 1;//содержимое части
 }

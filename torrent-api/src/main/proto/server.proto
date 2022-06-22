@@ -5,12 +5,18 @@ package org.hse.torrent.services.api;
 import "google/protobuf/empty.proto";
 
 service ServerService {
+  /* LIST */
   rpc getAllSharedFileMetadata (google.protobuf.Empty) returns (stream SharedFileMetadataResponse);
-  rpc getSharedFileSeeds (GetSharedFileSeedsRequest) returns (stream SharedFileSeedResponse);
+  /* SOURCES */
+  rpc getSharedFileSeeds (GetSharedFileSeedsRequest) returns (stream GetSharedFileSeedResponse);
+  /* UPLOAD */
   rpc registerSharedFile (RegisterSharedFileRequest) returns (RegisterSharedFileResponse);
+  /* UPDATE */
   rpc reportSeed (ReportSeedRequest) returns (google.protobuf.Empty);
 }
 
+
+/* LIST */
 message SharedFileMetadataResponse {
   //    <count: Int> (<id: Int> <name: String> <size: Long>)*,
   int32  fileId = 2;  //идентификатор файла
@@ -18,24 +24,22 @@ message SharedFileMetadataResponse {
   int64  sizeBytes = 4; //размер файла
 }
 
+
+/* SOURCES */
 message GetSharedFileSeedsRequest {
   //    <3: Byte> <id: Int>,
   int32 fileId = 1;  //идентификатор файла
 }
 
-message SharedFileSeedResponse {
+
+message GetSharedFileSeedResponse {
   //    <size: Int> (<ip: ByteByteByteByte> <clientPort: Short>)*,
   string ip = 1; //ip клиента,
   string port = 2; //порт клиента
 }
 
-message ReportSeedRequest {
-  //    <4: Byte> <clientPort: Short> <count: Int> (<id: Int>)*,
-  string ip = 1;
-  string port = 2; //порт клиента,
-  repeated int32 fileIds = 3; //идентификатор файла
-}
 
+/* UPLOAD */
 message RegisterSharedFileRequest {
   //    <2: Byte> <name: String> <size: Long>,
   string name = 1; //название файла
@@ -45,4 +49,13 @@ message RegisterSharedFileRequest {
 message RegisterSharedFileResponse {
   //    <id: Int>,
   int32 fileId = 1;  //идентификатор файла
+}
+
+
+/* UPDATE */
+message ReportSeedRequest {
+  //    <4: Byte> <clientPort: Short> <count: Int> (<id: Int>)*,
+  string ip = 1;
+  string port = 2; //порт клиента,
+  repeated int32 fileIds = 3; //идентификатор файла
 }

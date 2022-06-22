@@ -26,7 +26,8 @@ public class ServerServiceTest {
     public void listQueryTest() {
 //        uploadQueryRequest request =  createUploadQueryRequest("book.txt", 1000L);
 //        StreamObserver<SharedFileMetadataResponse> responseObserver = new StreamObserver<SharedFileMetadata>();
-//        serverService.listQuery(Empty.newBuilder().build(), responseObserver);
+//        serverService.getAllSharedFileMetadata(Empty.newBuilder().build(), responseObserver);
+
     }
 
 
