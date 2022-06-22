@@ -61,6 +61,10 @@ public class Seed {
         return files;
     }
 
+    public String getSeedId() {
+        return seedId;
+    }
+
     public void addFile(SharedFileMetadata file) {
         this.files.add(file);
         file.addSeedInternal(this);

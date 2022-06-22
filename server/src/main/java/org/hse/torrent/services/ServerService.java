@@ -46,8 +46,9 @@ public class ServerService extends ServerServiceGrpc.ServerServiceImplBase {
     @Override
     public void getSharedFileSeeds(
             GetSharedFileSeedsRequest request, StreamObserver<GetSharedFileSeedResponse> responseObserver) {
-        SharedFileMetadata file = sharedFileMetadataRepository.getById(request.getFileId());
-        OffsetDateTime now = OffsetDateTime.now();
+        SharedFileMetadata file =
+                sharedFileMetadataRepository.findById(request.getFileId()).orElseThrow();
+        OffsetDateTime now = getNow();
         file.getSeeds().stream()
                 .filter(it -> it.isAlive(now))
                 .forEach(seed -> responseObserver.onNext(GetSharedFileSeedResponse.newBuilder()
@@ -95,8 +96,12 @@ public class ServerService extends ServerServiceGrpc.ServerServiceImplBase {
         String id = String.format("%s:%s", ip, port);
         Optional<Seed> seed = seedRepository.findById(id);
         if (seed.isEmpty()) {
-            return new Seed(id, OffsetDateTime.now(), ip, port);
+            return new Seed(id, getNow(), ip, port);
         }
         return seed.get();
+    }
+
+    OffsetDateTime getNow() {
+        return OffsetDateTime.now();
     }
 }

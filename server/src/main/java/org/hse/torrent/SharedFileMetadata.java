@@ -1,5 +1,6 @@
 package org.hse.torrent;
 
+import com.google.common.annotations.VisibleForTesting;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -27,7 +28,8 @@ public class SharedFileMetadata {
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Seed> seeds = new HashSet<>();
 
-    public SharedFileMetadata() {}
+    public SharedFileMetadata() {
+    }
 
     public SharedFileMetadata(Integer fileId) {
         this.fileId = fileId;
@@ -54,7 +56,7 @@ public class SharedFileMetadata {
         return seeds;
     }
 
-    void addSeedInternal(Seed seed) {
+    public void addSeedInternal(Seed seed) {
         this.seeds.add(seed);
     }
 }
