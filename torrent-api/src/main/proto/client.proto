@@ -4,9 +4,9 @@ package org.hse.torrent.services;
 
 
 service ClientService {
-  /* STAT */
+  /* STAT -- доступные для раздачи части определенного файла */
   rpc getFilePartitioningInfo (GetFilePartitioningInfoRequest) returns (GetFilePartitioningInfoResponse);
-  /* GET */
+  /* GET -- скачивание части определенного файла */
   rpc getFilePart (GetFilePartRequest) returns (GetFilePartResponse);
 }
 

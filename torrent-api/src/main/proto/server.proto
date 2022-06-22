@@ -5,13 +5,13 @@ package org.hse.torrent.services.api;
 import "google/protobuf/empty.proto";
 
 service ServerService {
-  /* LIST */
+  /* LIST -- список раздаваемых файлов */
   rpc getAllSharedFileMetadata (google.protobuf.Empty) returns (stream SharedFileMetadataResponse);
-  /* SOURCES */
+  /* SOURCES -- список клиентов, владеющих определенным файлов целиком или некоторыми его частями */
   rpc getSharedFileSeeds (GetSharedFileSeedsRequest) returns (stream GetSharedFileSeedResponse);
-  /* UPLOAD */
+  /* UPLOAD -- публикация нового файла */
   rpc registerSharedFile (RegisterSharedFileRequest) returns (RegisterSharedFileResponse);
-  /* UPDATE */
+  /* UPDATE -- загрузка клиентом данных о раздаваемых файлах */
   rpc reportSeed (ReportSeedRequest) returns (google.protobuf.Empty);
 }
 
