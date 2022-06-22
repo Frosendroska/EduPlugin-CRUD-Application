@@ -1,48 +1,48 @@
 syntax = "proto3";
 
-package org.hse.torrent.services;
+package org.hse.torrent.services.api;
+
 import "google/protobuf/empty.proto";
 
 service ServerService {
-  rpc listQuery (google.protobuf.Empty) returns (stream SharedFileMetadataResponse);
-  rpc sourcesQuery (sourcesQueryRequest) returns (stream SourcesQueryResponse);
-  rpc updateQuery (updateQueryRequest) returns (google.protobuf.Empty);
-  rpc uploadQuery (uploadQueryRequest) returns (uploadQueryResponse);
+  rpc getAllSharedFileMetadata (google.protobuf.Empty) returns (stream SharedFileMetadataResponse);
+  rpc getSharedFileSeeds (GetSharedFileSeedsRequest) returns (stream SharedFileSeedResponse);
+  rpc registerSharedFile (RegisterSharedFileRequest) returns (RegisterSharedFileResponse);
+  rpc reportSeed (ReportSeedRequest) returns (google.protobuf.Empty);
 }
-
 
 message SharedFileMetadataResponse {
   //    <count: Int> (<id: Int> <name: String> <size: Long>)*,
-  int32 fileId = 2;  //идентификатор файла
+  int32  fileId = 2;  //идентификатор файла
   string name = 3; //название файла
-  int64  size = 4; //размер файла
+  int64  sizeBytes = 4; //размер файла
 }
 
-message sourcesQueryRequest {
+message GetSharedFileSeedsRequest {
   //    <3: Byte> <id: Int>,
   int32 fileId = 1;  //идентификатор файла
 }
 
-message SourcesQueryResponse {
+message SharedFileSeedResponse {
   //    <size: Int> (<ip: ByteByteByteByte> <clientPort: Short>)*,
-  string  ip = 1; //ip клиента,
-  string  clientPort = 2; //порт клиента
+  string ip = 1; //ip клиента,
+  string port = 2; //порт клиента
 }
 
-message updateQueryRequest {
+message ReportSeedRequest {
   //    <4: Byte> <clientPort: Short> <count: Int> (<id: Int>)*,
-  string clientPort = 1; //порт клиента,
-  string ip = 2;
-  repeated int32 fileId = 3; //идентификатор файла
+  string ip = 1;
+  string port = 2; //порт клиента,
+  repeated int32 fileIds = 3; //идентификатор файла
 }
 
-message uploadQueryRequest {
+message RegisterSharedFileRequest {
   //    <2: Byte> <name: String> <size: Long>,
   string name = 1; //название файла
-  int64  size = 2; //размер файла
+  int64  sizeBytes = 2; //размер файла
 }
 
-message uploadQueryResponse {
+message RegisterSharedFileResponse {
   //    <id: Int>,
   int32 fileId = 1;  //идентификатор файла
 }

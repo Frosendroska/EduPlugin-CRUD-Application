@@ -1,7 +1,7 @@
 package org.hse.torrent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "file")
+@Table(name = "files")
 public class SharedFileMetadata {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,10 +22,10 @@ public class SharedFileMetadata {
     private String name;
 
     @Column
-    private Long size;
+    private Long sizeBytes;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Seed> seeders = new ArrayList<>();
+    private Set<Seed> seeds = new HashSet<>();
 
     public SharedFileMetadata() {}
 
@@ -33,9 +33,9 @@ public class SharedFileMetadata {
         this.fileId = fileId;
     }
 
-    public SharedFileMetadata(String name, Long size) {
+    public SharedFileMetadata(String name, Long sizeBytes) {
         this.name = name;
-        this.size = size;
+        this.sizeBytes = sizeBytes;
     }
 
     public Integer getFileId() {
@@ -46,11 +46,15 @@ public class SharedFileMetadata {
         return name;
     }
 
-    public Long getSize() {
-        return size;
+    public Long getSizeBytes() {
+        return sizeBytes;
     }
 
-    public List<Seed> getSeeders() {
-        return seeders;
+    public Set<Seed> getSeeds() {
+        return seeds;
+    }
+
+    void addSeedInternal(Seed seed) {
+        this.seeds.add(seed);
     }
 }

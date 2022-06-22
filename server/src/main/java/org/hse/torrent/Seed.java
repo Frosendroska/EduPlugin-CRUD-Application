@@ -2,8 +2,8 @@ package org.hse.torrent;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +12,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "seed")
+@Table(name = "seeds")
 public class Seed {
+
+    private static final Duration SEED_TTL = Duration.ofMinutes(5);
+
     @Id
     String seedId;
 
@@ -21,27 +24,25 @@ public class Seed {
     OffsetDateTime lastUpdated;
 
     @Column
-    String port;
-
-    @Column
     String ip;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "seeders")
-    List<SharedFileMetadata> files = new ArrayList<>();
+    @Column
+    String port;
 
-    public Seed(String seedId, OffsetDateTime lastUpdated, String port, String ip) {
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "seeds")
+    Set<SharedFileMetadata> files = new HashSet<>();
+
+    public Seed(String seedId, OffsetDateTime lastUpdated, String ip, String port) {
         this.seedId = seedId;
         this.lastUpdated = lastUpdated;
-        this.port = port;
         this.ip = ip;
+        this.port = port;
     }
 
-    public Seed() {
-
-    }
+    public Seed() {}
 
     public boolean isAlive(OffsetDateTime now) {
-        return lastUpdated.toInstant().plus(Duration.ofMinutes(5)).isAfter(now.toInstant());
+        return lastUpdated.toInstant().plus(SEED_TTL).isAfter(now.toInstant());
     }
 
     public String getIp() {
@@ -56,11 +57,12 @@ public class Seed {
         return port;
     }
 
-    public List<SharedFileMetadata> getFiles() {
+    public Set<SharedFileMetadata> getFiles() {
         return files;
     }
 
-    public void setFiles(List<SharedFileMetadata> files) {
-        this.files = files;
+    public void addFile(SharedFileMetadata file) {
+        this.files.add(file);
+        file.addSeedInternal(this);
     }
 }

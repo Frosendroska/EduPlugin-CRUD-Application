@@ -8,14 +8,8 @@ import org.hse.torrent.services.Client.statQueryResponse;
 
 public class ClientService extends ClientServiceGrpc.ClientServiceImplBase {
     @Override
-    public void statQuery(
-            statQueryRequest request,
-            StreamObserver<statQueryResponse> responseObserver) {
-    }
+    public void statQuery(statQueryRequest request, StreamObserver<statQueryResponse> responseObserver) {}
 
     @Override
-    public void getQuery(
-            getQueryRequest request,
-            StreamObserver<getQueryResponse> responseObserver) {
-    }
+    public void getQuery(getQueryRequest request, StreamObserver<getQueryResponse> responseObserver) {}
 }
