@@ -1,4 +1,7 @@
-.env
+*.json
+
+.ideaDataSources/
+dataSources/
 
 HELP.md
 .gradle

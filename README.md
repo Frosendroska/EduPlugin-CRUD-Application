@@ -1,3 +1,25 @@
+# Тестирование
+
+запустить сервер: 
+
+`java -jar server/build/libs/server-0.0.1-SNAPSHOT.jar`
+
+запустить клиент: 
+
+`java -jar client/build/libs/client-0.0.1-SNAPSHOT.jar --grpc.server.port=<порт> --config.stateFilePath=<state.json>`
+
+list files:
+
+`grpc_cli call localhost:<port> listSharedFiles --json_input '{}'`
+
+upload file:
+
+`grpc_cli call localhost:<port> uploadFile --json_input '{"localPath": "<path>"}'`
+
+download file:
+
+`grpc_cli call localhost:<port> downloadFile --json_input '{"fileId": <fileId>, "localPath": "<path>" }'`
+
 # Torrent
 * На трекере хранится список файлов и информация об активных пользователях, у которых есть те или иные файлы (возможно не целиком).
 * С помощью клиентского приложения можно просматривать список файлов на трекере, а также добавлять новые и выбирать файлы из списка для скачивания.

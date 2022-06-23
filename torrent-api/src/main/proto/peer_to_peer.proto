@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package org.hse.torrent.services;
+package org.hse.torrent.services.api;
 
 
-service ClientService {
+service PeerToPeerService {
   /* STAT -- доступные для раздачи части определенного файла */
   rpc getFilePartitioningInfo (GetFilePartitioningInfoRequest) returns (GetFilePartitioningInfoResponse);
   /* GET -- скачивание части определенного файла */
@@ -27,7 +27,6 @@ message GetFilePartRequest {
   //    <2: Byte> <id: Int> <part: Int>
   int32 fileId = 1; //идентификатор файла,
   int32 partIndex = 2; //номер части
-
 }
 
 message GetFilePartResponse {
