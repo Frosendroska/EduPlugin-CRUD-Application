@@ -1,6 +1,6 @@
 # Запуск
 
-Start postgresql DB with the name EduPlugin in the port 5432
+Start postgresql DB with the name postgres in the port 5432
 
 # Testing
 
