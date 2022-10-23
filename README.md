@@ -26,10 +26,10 @@ Create a standard CRUD application with a possibility to `add` new book, `update
 # Torrent-tracker
 
 * Queries:
-    * `add` — 
-    * `update` — 
-    * `delete` — 
-    * `search` — 
+    * `POST` — Add the new book to the database
+    * `GET` — Get books with specific title/id in the database or all books
+    * `PUT` — Update the existing book in the database
+    * `DELETE` — Delete the  book from the database
 
 # Deadline 
 
