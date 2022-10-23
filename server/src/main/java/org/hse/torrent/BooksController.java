@@ -27,14 +27,69 @@ public class BooksController {
     }
 
     /**
-     * Get book with specific id in the database
+     * Get the book with specific id in the database
      *
      * @param id of the book
      * @return the specific book
      */
-    @GetMapping("/books/{id}")
+    @GetMapping("/books/id/{id}")
     private Book getBook(@PathVariable("id") Long id) {
         return booksService.getBookById(id);
+    }
+
+    /**
+     * Get books with specific title in the database
+     *
+     * @param title of books
+     * @return specific books
+     */
+    @GetMapping("/books/title/{title}")
+    private List<Book> getBooksByTitle(@PathVariable("title") String title) {
+        return booksService.getBooksByTitle(title);
+    }
+
+    /**
+     * Get books with specific author in the database
+     *
+     * @param author of books
+     * @return specific books
+     */
+    @GetMapping("/books/author/{author}")
+    private List<Book> getBooksByAuthor(@PathVariable("author") String author) {
+        return booksService.getBooksByAuthor(author);
+    }
+
+    /**
+     * Get books with specific isbn in the database
+     *
+     * @param isbn of books
+     * @return specific books
+     */
+    @GetMapping("/books/isbn/{isbn}")
+    private List<Book> getBooksByIsbn(@PathVariable("isbn") String isbn) {
+        return booksService.getBooksByIsbn(isbn);
+    }
+
+    /**
+     * Get books with specific printYear in the database
+     *
+     * @param printYear of books
+     * @return specific books
+     */
+    @GetMapping("/books/printYear/{printYear}")
+    private List<Book> getBooksPrintYear(@PathVariable("printYear") Integer printYear) {
+        return booksService.getBooksPrintYear(printYear);
+    }
+
+    /**
+     * Get books with specific readAlready in the database
+     *
+     * @param readAlready of books
+     * @return specific books
+     */
+    @GetMapping("/books/readAlready/{readAlready}")
+    private List<Book> getBooksByReadAlready(@PathVariable("readAlready") Boolean readAlready) {
+        return booksService.getBooksByReadAlready(readAlready);
     }
 
     /**
@@ -55,8 +110,7 @@ public class BooksController {
      */
     @PostMapping("/books")
     private Long postBook(@RequestBody Book book) {
-        booksService.postOrUpdate(book);
-        return book.getId();
+        return booksService.postBook(book).getId();
     }
 
     /**
@@ -67,7 +121,6 @@ public class BooksController {
      */
     @PutMapping("/books")
     private Book updateBook(@RequestBody Book book) {
-        booksService.postOrUpdate(book);
-        return book;
+        return booksService.updateBook(book);
     }
 }
