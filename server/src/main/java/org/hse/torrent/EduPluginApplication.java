@@ -7,8 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Sprint Boot Entry Point
  */
 @SpringBootApplication
-public class TorrentClientApplication {
+class EduPluginApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(TorrentClientApplication.class, args);
+        SpringApplication.run(EduPluginApplication.class, args);
     }
 }

@@ -4,8 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation project(':torrent-api')
-
     runtimeOnly 'org.postgresql:postgresql'
 
     implementation 'net.devh:grpc-server-spring-boot-starter:2.12.0.RELEASE'
