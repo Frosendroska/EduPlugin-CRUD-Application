@@ -4,6 +4,7 @@ Start postgresql DB with the name postgres in the port 5432
 
 # Testing
 
+I used Postman application to deal with requests.
 
 # EduPlugin
 
