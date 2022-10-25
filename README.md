@@ -26,10 +26,17 @@ Create a standard CRUD application with a possibility to `add` new book, `update
 # Torrent-tracker
 
 * Queries:
-    * `POST` — Add the new book to the database
-    * `GET` — Get books with specific title/id in the database or all books
-    * `PUT` — Update the existing book in the database
-    * `DELETE` — Delete the  book from the database
+    * `POST` **/books** <Book> —- Add the new book to the database 
+    * `GET` —- Get books with specific title/id in the database or all books
+      *   **/books** -- Get all books from the database
+      *   **/books/id/<id>** -- Get the book with specific id in the database
+      *   **/books/title/<title>** -- Get books with specific title in the database
+      *   **/books/author/<author>**-- Get books with specific author in the database
+      *   **/books/isbn/<isbn>** -- Get books with specific isbn in the database
+      *   **/books/printYear/<printYear>** -- Get books with specific printYear in the database
+      *   **/books/readAlready/<readAlready>** -- Get books with specific readAlready in the database
+    * `PUT`**/books** <Book> —- Update the existing book in the database
+    * `DELETE` **/books/<id>** —- Delete the  book from the database
 
 # Deadline 
 
