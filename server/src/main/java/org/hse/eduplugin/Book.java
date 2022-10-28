@@ -1,4 +1,4 @@
-package org.hse.torrent;
+package org.hse.eduplugin;
 
 
 import javax.persistence.Column;

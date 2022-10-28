@@ -1,4 +1,4 @@
-package org.hse.torrent;
+package org.hse.eduplugin;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;

@@ -1,11 +1,3 @@
-# Запуск
-
-Start postgresql DB with the name postgres in the port 5432
-
-# Testing
-
-I used Postman application to deal with requests.
-
 # EduPlugin
 
 A library simulator REST API without frontend.
@@ -16,7 +8,7 @@ There is one table "books", which stores a books list.The following data should 
 Create a standard CRUD application with a possibility to `add` new book, `update` an existing one 
 (e.g. mark the book as read or replace a book by a new edition), `delete` and `search` by field.
 
-### Torrent
+### Technologies
 
   Gradle;
   Spring Boot;
@@ -24,7 +16,13 @@ Create a standard CRUD application with a possibility to `add` new book, `update
   Spring Data JPA;
   Postgres;
 
-# Torrent-tracker
+### Testing
+
+Start postgresql DB with the name postgres in the port 5432
+
+I used Postman application to deal with requests.
+
+### Torrent-tracker
 
 * Queries:
     * `POST /books <Book>` — Add the new book to the database 
@@ -39,6 +37,6 @@ Create a standard CRUD application with a possibility to `add` new book, `update
     * `PUT /books <Book>` — Update the existing book in the database
     * `DELETE /books/<id>` - Delete the  book from the database
 
-# Deadline 
+### Deadline 
 
 * 30.10.2022

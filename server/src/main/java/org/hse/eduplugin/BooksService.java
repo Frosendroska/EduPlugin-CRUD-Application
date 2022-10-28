@@ -1,4 +1,4 @@
-package org.hse.torrent;
+package org.hse.eduplugin;
 
 import java.util.ArrayList;
 import java.util.List;
