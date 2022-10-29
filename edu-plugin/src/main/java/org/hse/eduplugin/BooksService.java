@@ -10,6 +10,10 @@ public class BooksService {
     @Autowired
     BooksRepository booksRepository;
 
+    public void deleteAll() {
+        booksRepository.deleteAll();
+    }
+
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         booksRepository.findAll().forEach(books::add);
@@ -21,8 +25,12 @@ public class BooksService {
         return book.orElse(null);
     }
 
-    public Book postBook(Book book) {
-        return booksRepository.save(book);
+    public Long postBook(Book book) {
+        return booksRepository.save(book).getId();
+    }
+
+    public void postAllBook(List<Book> books) {
+        booksRepository.saveAll(books);
     }
 
     public Book updateBook(Book book) {
@@ -32,8 +40,12 @@ public class BooksService {
         return null;
     }
 
-    public void deleteBook(Long id) {
-        booksRepository.deleteById(id);
+    public Book deleteBook(Long id) {
+        Book book = getBookById(id);
+        if (book != null) {
+            booksRepository.deleteById(id);
+        }
+        return book;
     }
 
     public List<Book> getBooksByTitle(String title) {

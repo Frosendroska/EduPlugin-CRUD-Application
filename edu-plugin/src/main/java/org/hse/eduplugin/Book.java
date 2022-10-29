@@ -27,6 +27,18 @@ public class Book {
     @Column
     private Boolean readAlready;
 
+    public Book() {
+    }
+
+    public Book(String title_, String description_, String author_, String isbn_, Integer printYear_, Boolean readAlready_) {
+        title = title_;
+        description = description_;
+        author = author_;
+        isbn = isbn_;
+        printYear = printYear_;
+        readAlready = readAlready_;
+    }
+
     public Long getId() {
         return id;
     }

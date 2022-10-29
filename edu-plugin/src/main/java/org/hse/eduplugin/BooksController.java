@@ -96,21 +96,32 @@ public class BooksController {
      * Delete the  book from the database
      *
      * @param id of book that user want to delete
+     * @return deleted book
      */
-    @DeleteMapping("/books/{id}")
-    private void deleteBook(@PathVariable("id") Long id) {
-        booksService.deleteBook(id);
+    @DeleteMapping("/books/id/{id}")
+    private Book deleteBook(@PathVariable("id") Long id) {
+        return booksService.deleteBook(id);
     }
 
     /**
      * Add the new book to the database
      *
-     * @param book book that user want to add
+     * @param book that user want to add
      * @return the id of the recently added book
      */
     @PostMapping("/books")
     private Long postBook(@RequestBody Book book) {
-        return booksService.postBook(book).getId();
+        return booksService.postBook(book);
+    }
+
+    /**
+     * Add new books to the database
+     *
+     * @param books that user want to add
+     */
+    @PostMapping("/books/all")
+    private void postAllBook(@RequestBody List<Book> books) {
+        booksService.postAllBook(books);
     }
 
     /**
@@ -122,5 +133,13 @@ public class BooksController {
     @PutMapping("/books")
     private Book updateBook(@RequestBody Book book) {
         return booksService.updateBook(book);
+    }
+
+    /**
+     * Delete all books from the database
+     */
+    @DeleteMapping("/books")
+    private void deleteAll() {
+        booksService.deleteAll();
     }
 }
