@@ -1,13 +1,18 @@
-package org.hse.eduplugin;
+package org.hse.eduplugin.controllers;
 
 import java.util.List;
+import org.hse.eduplugin.services.BooksService;
+import org.hse.eduplugin.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,7 +27,7 @@ public class BooksController {
      * @return the List of all books
      */
     @GetMapping("/books")
-    private List<Book> getAllBooks() {
+    private ResponseEntity<List<Book>> getAllBooks() {
         return booksService.getAllBooks();
     }
 
@@ -33,7 +38,7 @@ public class BooksController {
      * @return the specific book
      */
     @GetMapping("/books/id/{id}")
-    private Book getBook(@PathVariable("id") Long id) {
+    private ResponseEntity<Book> getBook(@PathVariable("id") Long id) {
         return booksService.getBookById(id);
     }
 
@@ -44,7 +49,7 @@ public class BooksController {
      * @return specific books
      */
     @GetMapping("/books/title/{title}")
-    private List<Book> getBooksByTitle(@PathVariable("title") String title) {
+    private ResponseEntity<List<Book>> getBooksByTitle(@PathVariable("title") String title) {
         return booksService.getBooksByTitle(title);
     }
 
@@ -55,7 +60,7 @@ public class BooksController {
      * @return specific books
      */
     @GetMapping("/books/author/{author}")
-    private List<Book> getBooksByAuthor(@PathVariable("author") String author) {
+    private ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable("author") String author) {
         return booksService.getBooksByAuthor(author);
     }
 
@@ -66,7 +71,7 @@ public class BooksController {
      * @return specific books
      */
     @GetMapping("/books/isbn/{isbn}")
-    private List<Book> getBooksByIsbn(@PathVariable("isbn") String isbn) {
+    private ResponseEntity<List<Book>> getBooksByIsbn(@PathVariable("isbn") String isbn) {
         return booksService.getBooksByIsbn(isbn);
     }
 
@@ -77,7 +82,7 @@ public class BooksController {
      * @return specific books
      */
     @GetMapping("/books/printYear/{printYear}")
-    private List<Book> getBooksPrintYear(@PathVariable("printYear") Integer printYear) {
+    private ResponseEntity<List<Book>> getBooksPrintYear(@PathVariable("printYear") Integer printYear) {
         return booksService.getBooksPrintYear(printYear);
     }
 
@@ -88,7 +93,7 @@ public class BooksController {
      * @return specific books
      */
     @GetMapping("/books/readAlready/{readAlready}")
-    private List<Book> getBooksByReadAlready(@PathVariable("readAlready") Boolean readAlready) {
+    private ResponseEntity<List<Book>> getBooksByReadAlready(@PathVariable("readAlready") Boolean readAlready) {
         return booksService.getBooksByReadAlready(readAlready);
     }
 
@@ -99,7 +104,7 @@ public class BooksController {
      * @return deleted book
      */
     @DeleteMapping("/books/id/{id}")
-    private Book deleteBook(@PathVariable("id") Long id) {
+    private ResponseEntity<Book> deleteBook(@PathVariable("id") Long id) {
         return booksService.deleteBook(id);
     }
 
@@ -110,7 +115,7 @@ public class BooksController {
      * @return the id of the recently added book
      */
     @PostMapping("/books")
-    private Long postBook(@RequestBody Book book) {
+    private ResponseEntity<Long> postBook(@RequestBody Book book) {
         return booksService.postBook(book);
     }
 
@@ -120,6 +125,7 @@ public class BooksController {
      * @param books that user want to add
      */
     @PostMapping("/books/all")
+    @ResponseStatus(HttpStatus.CREATED)
     private void postAllBook(@RequestBody List<Book> books) {
         booksService.postAllBook(books);
     }
@@ -131,7 +137,7 @@ public class BooksController {
      * @return the updated book
      */
     @PutMapping("/books")
-    private Book updateBook(@RequestBody Book book) {
+    private ResponseEntity<Book> updateBook(@RequestBody Book book) {
         return booksService.updateBook(book);
     }
 
@@ -139,6 +145,7 @@ public class BooksController {
      * Delete all books from the database
      */
     @DeleteMapping("/books")
+    @ResponseStatus(HttpStatus.OK)
     private void deleteAll() {
         booksService.deleteAll();
     }

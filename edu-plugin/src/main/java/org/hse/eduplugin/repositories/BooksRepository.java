@@ -1,6 +1,7 @@
-package org.hse.eduplugin;
+package org.hse.eduplugin.repositories;
 
 import java.util.List;
+import org.hse.eduplugin.models.Book;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

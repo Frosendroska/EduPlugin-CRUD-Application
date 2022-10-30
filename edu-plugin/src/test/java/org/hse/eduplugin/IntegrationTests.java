@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import net.minidev.json.JSONArray;
+import org.hse.eduplugin.models.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class IntegrationTests {
         mockMvc.perform(post("/books/all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JSONArray.toJSONString(getBooks())))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
         mockMvc.perform(get("/books")).andExpect(status().isOk());
     }
 
@@ -63,7 +64,7 @@ public class IntegrationTests {
         mockMvc.perform(post("/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new Gson().toJson(getBooks().get(0)))
-                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
     }
 
     @Test
@@ -72,7 +73,7 @@ public class IntegrationTests {
         MvcResult id = mockMvc.perform(post("/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new Gson().toJson(book))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
                 .andReturn();
         book.setAuthor("Undefined");
         book.setId(parseLong(id.getResponse().getContentAsString()));
@@ -89,12 +90,11 @@ public class IntegrationTests {
         MvcResult idResponse = mockMvc.perform(post("/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new Gson().toJson(book))
-                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
+                        .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
                 .andReturn();
         Long id = parseLong(idResponse.getResponse().getContentAsString());
         mockMvc.perform(delete(String.format("/books/id/%d", id))).andExpect(status().isOk());
-        mockMvc.perform(get(String.format("/books/id/%d", id))).andExpect(status().isOk())
-                .andExpect(jsonPath("$").doesNotExist());
+        mockMvc.perform(get(String.format("/books/id/%d", id))).andExpect(status().isNotFound());
     }
 
     @Test
@@ -104,9 +104,14 @@ public class IntegrationTests {
         mockMvc.perform(post("/books/all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JSONArray.toJSONString(books)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
         mockMvc.perform(get(String.format("/books/title/%s", testBook.getTitle())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].author").value(testBook.getAuthor()));
+    }
+
+    @Test
+    public void deleteStatusNotFound() throws Exception {
+        mockMvc.perform(delete("/books/id/42")).andExpect(status().isNotFound());
     }
 }

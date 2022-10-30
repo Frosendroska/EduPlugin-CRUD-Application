@@ -1,4 +1,4 @@
-package org.hse.eduplugin;
+package org.hse.eduplugin.models;
 
 
 import javax.persistence.Column;
